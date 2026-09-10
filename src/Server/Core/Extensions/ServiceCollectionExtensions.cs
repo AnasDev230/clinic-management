@@ -5,7 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Server.Core.Exceptions;
 using Server.Core.Interfaces;
+using Server.Features.Auth.Services;
 using Server.Infrastructure.Identity;
+using Server.Infrastructure.Options;
 using Server.Infrastructure.Persistence;
 using Server.Infrastructure.Services;
 
@@ -62,6 +64,8 @@ public static class ServiceCollectionExtensions
         services.AddHttpContextAccessor();
         services.AddScoped<ICurrentUserService, CurrentUserService>();
 
+        services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
+
         services.AddExceptionHandler<GlobalExceptionHandler>();
         services.AddProblemDetails();
 
@@ -80,6 +84,7 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
+        services.AddScoped<IAuthService, AuthService>();
         return services;
     }
 }
