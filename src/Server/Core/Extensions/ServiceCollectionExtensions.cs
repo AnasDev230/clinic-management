@@ -6,6 +6,8 @@ using Microsoft.IdentityModel.Tokens;
 using Server.Core.Exceptions;
 using Server.Core.Interfaces;
 using Server.Features.Auth.Services;
+using Server.Features.Clinic.Repositories;
+using Server.Features.Clinic.Services;
 using Server.Infrastructure.Identity;
 using Server.Infrastructure.Options;
 using Server.Infrastructure.Persistence;
@@ -85,6 +87,8 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IClinicRepository, ClinicRepository>();
+        services.AddScoped<IClinicService, ClinicService>();
         return services;
     }
 }

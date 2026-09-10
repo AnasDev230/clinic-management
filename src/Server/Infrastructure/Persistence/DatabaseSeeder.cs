@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Server.Infrastructure.Identity;
+using Server.Infrastructure.Persistence.Entities;
 
 namespace Server.Infrastructure.Persistence;
 
@@ -46,5 +48,36 @@ public static class DatabaseSeeder
                     $"Failed to seed default SuperAdmin user: {string.Join(", ", result.Errors.Select(e => e.Description))}");
             }
         }
+
+        await SeedClinicDefaultsAsync(scope.ServiceProvider);
+    }
+
+    private static async Task SeedClinicDefaultsAsync(IServiceProvider serviceProvider)
+    {
+        var dbContext = serviceProvider.GetRequiredService<AppDbContext>();
+
+        if (!await dbContext.ClinicProfiles.AnyAsync())
+        {
+            dbContext.ClinicProfiles.Add(new ClinicProfile
+            {
+                Name = "My Clinic",
+                WorkingHoursStart = new TimeOnly(9, 0),
+                WorkingHoursEnd = new TimeOnly(21, 0)
+            });
+        }
+
+        if (!await dbContext.ClinicSettings.AnyAsync())
+        {
+            dbContext.ClinicSettings.Add(new ClinicSettings
+            {
+                CurrencyCode = "SYP",
+                TimeZone = "Asia/Damascus",
+                AllowOnlineBooking = true,
+                AppointmentDurationMinutes = 30,
+                MaxPatientsPerDay = 50
+            });
+        }
+
+        await dbContext.SaveChangesAsync();
     }
 }

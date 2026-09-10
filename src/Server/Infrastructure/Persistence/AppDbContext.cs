@@ -15,6 +15,10 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, 
 
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
+    public DbSet<ClinicProfile> ClinicProfiles => Set<ClinicProfile>();
+
+    public DbSet<ClinicSettings> ClinicSettings => Set<ClinicSettings>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
