@@ -19,6 +19,8 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, 
 
     public DbSet<ClinicSettings> ClinicSettings => Set<ClinicSettings>();
 
+    public DbSet<Specialty> Specialties => Set<Specialty>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

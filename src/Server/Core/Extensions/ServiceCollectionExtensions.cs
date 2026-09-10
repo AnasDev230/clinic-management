@@ -8,6 +8,8 @@ using Server.Core.Interfaces;
 using Server.Features.Auth.Services;
 using Server.Features.Clinic.Repositories;
 using Server.Features.Clinic.Services;
+using Server.Features.Specialties.Repositories;
+using Server.Features.Specialties.Services;
 using Server.Infrastructure.Identity;
 using Server.Infrastructure.Options;
 using Server.Infrastructure.Persistence;
@@ -89,6 +91,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IClinicRepository, ClinicRepository>();
         services.AddScoped<IClinicService, ClinicService>();
+        services.AddScoped<ISpecialtyRepository, SpecialtyRepository>();
+        services.AddScoped<ISpecialtyService, SpecialtyService>();
         return services;
     }
 }
