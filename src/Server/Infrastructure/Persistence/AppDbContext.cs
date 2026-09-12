@@ -21,6 +21,20 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, 
 
     public DbSet<Specialty> Specialties => Set<Specialty>();
 
+    public DbSet<Doctor> Doctors => Set<Doctor>();
+
+    public DbSet<DoctorSpecialty> DoctorSpecialties => Set<DoctorSpecialty>();
+
+    public DbSet<DoctorSchedule> DoctorSchedules => Set<DoctorSchedule>();
+
+    public DbSet<Patient> Patients => Set<Patient>();
+
+    public DbSet<PatientMedicalHistory> PatientMedicalHistories => Set<PatientMedicalHistory>();
+
+    public DbSet<PatientAllergy> PatientAllergies => Set<PatientAllergy>();
+
+    public DbSet<PatientInsurance> PatientInsurances => Set<PatientInsurance>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
