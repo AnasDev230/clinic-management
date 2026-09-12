@@ -54,10 +54,10 @@ public class PatientAllergyService : IPatientAllergyService
         return MapToResponse(allergy);
     }
 
-    public async Task<AllergyResponse> UpdateAsync(Guid id, UpdateAllergyRequest request)
+    public async Task<AllergyResponse> UpdateAsync(Guid id, UpdateAllergyRequest request, Guid? patientId = null)
     {
         var allergy = await _repository.GetByIdForUpdateAsync(id);
-        if (allergy is null)
+        if (allergy is null || (patientId.HasValue && allergy.PatientId != patientId.Value))
             throw new NotFoundException("Allergy", id);
 
         allergy.Name = request.Name.Trim();
@@ -71,10 +71,10 @@ public class PatientAllergyService : IPatientAllergyService
         return MapToResponse(allergy);
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task DeleteAsync(Guid id, Guid? patientId = null)
     {
         var allergy = await _repository.GetByIdForUpdateAsync(id);
-        if (allergy is null)
+        if (allergy is null || (patientId.HasValue && allergy.PatientId != patientId.Value))
             throw new NotFoundException("Allergy", id);
 
         _repository.SoftDelete(allergy);

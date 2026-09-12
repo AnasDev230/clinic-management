@@ -8,7 +8,7 @@ public interface IPatientAllergyService
 
     Task<AllergyResponse> CreateAsync(Guid patientId, CreateAllergyRequest request);
 
-    Task<AllergyResponse> UpdateAsync(Guid id, UpdateAllergyRequest request);
+    Task<AllergyResponse> UpdateAsync(Guid id, UpdateAllergyRequest request, Guid? patientId = null);
 
-    Task DeleteAsync(Guid id);
+    Task DeleteAsync(Guid id, Guid? patientId = null);
 }

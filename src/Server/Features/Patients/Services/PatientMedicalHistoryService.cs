@@ -54,10 +54,10 @@ public class PatientMedicalHistoryService : IPatientMedicalHistoryService
         return MapToResponse(history);
     }
 
-    public async Task<MedicalHistoryResponse> UpdateAsync(Guid id, UpdateMedicalHistoryRequest request)
+    public async Task<MedicalHistoryResponse> UpdateAsync(Guid id, UpdateMedicalHistoryRequest request, Guid? patientId = null)
     {
         var history = await _repository.GetByIdForUpdateAsync(id);
-        if (history is null)
+        if (history is null || (patientId.HasValue && history.PatientId != patientId.Value))
             throw new NotFoundException("Medical history", id);
 
         history.Title = request.Title.Trim();
@@ -71,10 +71,10 @@ public class PatientMedicalHistoryService : IPatientMedicalHistoryService
         return MapToResponse(history);
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task DeleteAsync(Guid id, Guid? patientId = null)
     {
         var history = await _repository.GetByIdForUpdateAsync(id);
-        if (history is null)
+        if (history is null || (patientId.HasValue && history.PatientId != patientId.Value))
             throw new NotFoundException("Medical history", id);
 
         _repository.SoftDelete(history);

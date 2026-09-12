@@ -8,7 +8,7 @@ public interface IPatientMedicalHistoryService
 
     Task<MedicalHistoryResponse> CreateAsync(Guid patientId, CreateMedicalHistoryRequest request);
 
-    Task<MedicalHistoryResponse> UpdateAsync(Guid id, UpdateMedicalHistoryRequest request);
+    Task<MedicalHistoryResponse> UpdateAsync(Guid id, UpdateMedicalHistoryRequest request, Guid? patientId = null);
 
-    Task DeleteAsync(Guid id);
+    Task DeleteAsync(Guid id, Guid? patientId = null);
 }
