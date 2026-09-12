@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Building2, Stethoscope } from "lucide-react";
+import { Building2, Layers, Stethoscope, Users } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -16,7 +16,9 @@ export default function DashboardPage() {
 
   const shortcuts = [
     { href: "/clinic", title: t("nav.clinic"), Icon: Building2 },
-    { href: "/specialties", title: t("nav.specialties"), Icon: Stethoscope },
+    { href: "/specialties", title: t("nav.specialties"), Icon: Layers },
+    { href: "/doctors", title: t("nav.doctors"), Icon: Stethoscope },
+    { href: "/patients", title: t("nav.patients"), Icon: Users },
   ];
 
   return (

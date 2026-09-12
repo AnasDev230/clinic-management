@@ -5,7 +5,9 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Building2,
+  Layers,
   Stethoscope,
+  Users,
   HeartPulse,
   X,
 } from "lucide-react";
@@ -25,7 +27,9 @@ export function Sidebar({ open, onClose }: SidebarProps) {
   const links = [
     { href: "/", label: t("nav.dashboard"), Icon: LayoutDashboard },
     { href: "/clinic", label: t("nav.clinic"), Icon: Building2 },
-    { href: "/specialties", label: t("nav.specialties"), Icon: Stethoscope },
+    { href: "/specialties", label: t("nav.specialties"), Icon: Layers },
+    { href: "/doctors", label: t("nav.doctors"), Icon: Stethoscope },
+    { href: "/patients", label: t("nav.patients"), Icon: Users },
   ];
 
   return (
