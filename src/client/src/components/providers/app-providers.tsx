@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { DirectionProvider } from "@radix-ui/react-direction";
 import { ToastContainer } from "@/components/ui/toast-container";
 import { useLanguageStore } from "@/stores/language-store";
 import { useThemeStore } from "@/stores/theme-store";
@@ -34,8 +35,10 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {children}
-      <ToastContainer />
+      <DirectionProvider dir={getDirection(language)}>
+        {children}
+        <ToastContainer />
+      </DirectionProvider>
     </QueryClientProvider>
   );
 }

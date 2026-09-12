@@ -1,9 +1,12 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTranslation } from "@/hooks/use-translation";
+import { ClinicProfileForm } from "@/features/clinic/components/clinic-profile-form";
+import { ClinicSettingsForm } from "@/features/clinic/components/clinic-settings-form";
 
-export default function ClinicPlaceholderPage() {
+export default function ClinicPage() {
   const { t } = useTranslation();
 
   return (
@@ -14,11 +17,26 @@ export default function ClinicPlaceholderPage() {
           {t("clinic.description")}
         </p>
       </div>
-      <Card>
-        <CardContent className="pt-6 text-sm text-muted-foreground">
-          {t("common.comingSoon")}
-        </CardContent>
-      </Card>
+      <Tabs defaultValue="profile">
+        <TabsList>
+          <TabsTrigger value="profile">{t("clinic.tabs.profile")}</TabsTrigger>
+          <TabsTrigger value="settings">{t("clinic.tabs.settings")}</TabsTrigger>
+        </TabsList>
+        <TabsContent value="profile">
+          <Card>
+            <CardContent className="pt-6">
+              <ClinicProfileForm />
+            </CardContent>
+          </Card>
+        </TabsContent>
+        <TabsContent value="settings">
+          <Card>
+            <CardContent className="pt-6">
+              <ClinicSettingsForm />
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
