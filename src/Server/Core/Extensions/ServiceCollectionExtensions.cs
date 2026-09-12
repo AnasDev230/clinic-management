@@ -8,6 +8,10 @@ using Server.Core.Interfaces;
 using Server.Features.Auth.Services;
 using Server.Features.Clinic.Repositories;
 using Server.Features.Clinic.Services;
+using Server.Features.Doctors.Repositories;
+using Server.Features.Doctors.Services;
+using Server.Features.Patients.Repositories;
+using Server.Features.Patients.Services;
 using Server.Features.Specialties.Repositories;
 using Server.Features.Specialties.Services;
 using Server.Infrastructure.Identity;
@@ -93,6 +97,16 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IClinicService, ClinicService>();
         services.AddScoped<ISpecialtyRepository, SpecialtyRepository>();
         services.AddScoped<ISpecialtyService, SpecialtyService>();
+        services.AddScoped<IDoctorRepository, DoctorRepository>();
+        services.AddScoped<IDoctorService, DoctorService>();
+        services.AddScoped<IPatientRepository, PatientRepository>();
+        services.AddScoped<IPatientService, PatientService>();
+        services.AddScoped<IPatientMedicalHistoryRepository, PatientMedicalHistoryRepository>();
+        services.AddScoped<IPatientMedicalHistoryService, PatientMedicalHistoryService>();
+        services.AddScoped<IPatientAllergyRepository, PatientAllergyRepository>();
+        services.AddScoped<IPatientAllergyService, PatientAllergyService>();
+        services.AddScoped<IPatientInsuranceRepository, PatientInsuranceRepository>();
+        services.AddScoped<IPatientInsuranceService, PatientInsuranceService>();
         return services;
     }
 }
