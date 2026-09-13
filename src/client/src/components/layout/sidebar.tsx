@@ -10,6 +10,9 @@ import {
   Users,
   CalendarDays,
   HeartPulse,
+  Pill,
+  BriefcaseMedical,
+  FlaskConical,
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -33,6 +36,9 @@ export function Sidebar({ open, onClose }: SidebarProps) {
     { href: "/patients", label: t("nav.patients"), Icon: Users },
     { href: "/appointments", label: t("nav.appointments"), Icon: CalendarDays },
     { href: "/visits", label: t("nav.visits"), Icon: HeartPulse },
+    { href: "/prescriptions", label: t("nav.prescriptions"), Icon: Pill },
+    { href: "/services", label: t("nav.services"), Icon: BriefcaseMedical },
+    { href: "/lab-tests", label: t("nav.labTests"), Icon: FlaskConical },
   ];
 
   return (
