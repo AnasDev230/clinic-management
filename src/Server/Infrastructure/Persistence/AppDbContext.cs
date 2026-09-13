@@ -57,6 +57,12 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, 
 
     public DbSet<LabResult> LabResults => Set<LabResult>();
 
+    public DbSet<Invoice> Invoices => Set<Invoice>();
+
+    public DbSet<InvoiceItem> InvoiceItems => Set<InvoiceItem>();
+
+    public DbSet<Payment> Payments => Set<Payment>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
