@@ -8,6 +8,8 @@ using Server.Core.Interfaces;
 using Server.Features.Appointments.Repositories;
 using Server.Features.Appointments.Services;
 using Server.Features.Auth.Services;
+using Server.Features.Billing.Repositories;
+using Server.Features.Billing.Services;
 using Server.Features.Clinic.Repositories;
 using Server.Features.Clinic.Services;
 using Server.Features.Doctors.Repositories;
@@ -137,6 +139,11 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ILabTestRepository, LabTestRepository>();
         services.AddScoped<ILabResultRepository, LabResultRepository>();
         services.AddScoped<ILabTestService, LabTestService>();
+        services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+        services.AddScoped<IInvoiceItemRepository, InvoiceItemRepository>();
+        services.AddScoped<IPaymentRepository, PaymentRepository>();
+        services.AddScoped<IInvoiceService, InvoiceService>();
+        services.AddScoped<IPaymentService, PaymentService>();
         return services;
     }
 }
