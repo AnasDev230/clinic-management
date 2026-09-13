@@ -13,6 +13,7 @@ import {
   Pill,
   BriefcaseMedical,
   FlaskConical,
+  Receipt,
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -39,6 +40,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
     { href: "/prescriptions", label: t("nav.prescriptions"), Icon: Pill },
     { href: "/services", label: t("nav.services"), Icon: BriefcaseMedical },
     { href: "/lab-tests", label: t("nav.labTests"), Icon: FlaskConical },
+    { href: "/billing", label: t("nav.billing"), Icon: Receipt },
   ];
 
   return (
