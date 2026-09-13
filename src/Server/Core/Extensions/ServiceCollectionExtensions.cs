@@ -7,6 +7,10 @@ using Server.Core.Exceptions;
 using Server.Core.Interfaces;
 using Server.Features.Appointments.Repositories;
 using Server.Features.Appointments.Services;
+using Server.Features.Attachments.Repositories;
+using Server.Features.Attachments.Services;
+using Server.Features.AuditLogs.Repositories;
+using Server.Features.AuditLogs.Services;
 using Server.Features.Auth.Services;
 using Server.Features.Billing.Repositories;
 using Server.Features.Billing.Services;
@@ -16,6 +20,8 @@ using Server.Features.Doctors.Repositories;
 using Server.Features.Doctors.Services;
 using Server.Features.LabTests.Repositories;
 using Server.Features.LabTests.Services;
+using Server.Features.Notifications.Repositories;
+using Server.Features.Notifications.Services;
 using Server.Features.Patients.Repositories;
 using Server.Features.Patients.Services;
 using Server.Features.Prescriptions.Repositories;
@@ -144,6 +150,12 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IPaymentRepository, PaymentRepository>();
         services.AddScoped<IInvoiceService, InvoiceService>();
         services.AddScoped<IPaymentService, PaymentService>();
+        services.AddScoped<INotificationRepository, NotificationRepository>();
+        services.AddScoped<INotificationService, NotificationService>();
+        services.AddScoped<IAttachmentRepository, AttachmentRepository>();
+        services.AddScoped<IAttachmentService, AttachmentService>();
+        services.AddScoped<IAuditLogRepository, AuditLogRepository>();
+        services.AddScoped<IAuditLogService, AuditLogService>();
         return services;
     }
 }
