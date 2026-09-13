@@ -12,8 +12,14 @@ using Server.Features.Clinic.Repositories;
 using Server.Features.Clinic.Services;
 using Server.Features.Doctors.Repositories;
 using Server.Features.Doctors.Services;
+using Server.Features.LabTests.Repositories;
+using Server.Features.LabTests.Services;
 using Server.Features.Patients.Repositories;
 using Server.Features.Patients.Services;
+using Server.Features.Prescriptions.Repositories;
+using Server.Features.Prescriptions.Services;
+using Server.Features.Services.Repositories;
+using Server.Features.Services.Services;
 using Server.Features.Specialties.Repositories;
 using Server.Features.Specialties.Services;
 using Server.Features.Visits.Repositories;
@@ -121,6 +127,16 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IVisitDiagnosisService, VisitDiagnosisService>();
         services.AddScoped<IVisitVitalsRepository, VisitVitalsRepository>();
         services.AddScoped<IVisitVitalsService, VisitVitalsService>();
+        services.AddScoped<IPrescriptionRepository, PrescriptionRepository>();
+        services.AddScoped<IPrescriptionItemRepository, PrescriptionItemRepository>();
+        services.AddScoped<IPrescriptionService, PrescriptionService>();
+        services.AddScoped<IServiceCategoryRepository, ServiceCategoryRepository>();
+        services.AddScoped<IServiceCategoryService, ServiceCategoryService>();
+        services.AddScoped<IMedicalServiceRepository, MedicalServiceRepository>();
+        services.AddScoped<IMedicalServiceService, MedicalServiceService>();
+        services.AddScoped<ILabTestRepository, LabTestRepository>();
+        services.AddScoped<ILabResultRepository, LabResultRepository>();
+        services.AddScoped<ILabTestService, LabTestService>();
         return services;
     }
 }
