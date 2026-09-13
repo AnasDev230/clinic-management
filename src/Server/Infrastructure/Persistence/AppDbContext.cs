@@ -45,6 +45,18 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, 
 
     public DbSet<VisitVitals> VisitVitals => Set<VisitVitals>();
 
+    public DbSet<Prescription> Prescriptions => Set<Prescription>();
+
+    public DbSet<PrescriptionItem> PrescriptionItems => Set<PrescriptionItem>();
+
+    public DbSet<ServiceCategory> ServiceCategories => Set<ServiceCategory>();
+
+    public DbSet<MedicalService> MedicalServices => Set<MedicalService>();
+
+    public DbSet<LabTest> LabTests => Set<LabTest>();
+
+    public DbSet<LabResult> LabResults => Set<LabResult>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
