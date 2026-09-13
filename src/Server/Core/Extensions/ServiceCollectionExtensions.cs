@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Server.Core.Exceptions;
 using Server.Core.Interfaces;
+using Server.Features.Appointments.Repositories;
+using Server.Features.Appointments.Services;
 using Server.Features.Auth.Services;
 using Server.Features.Clinic.Repositories;
 using Server.Features.Clinic.Services;
@@ -14,6 +16,8 @@ using Server.Features.Patients.Repositories;
 using Server.Features.Patients.Services;
 using Server.Features.Specialties.Repositories;
 using Server.Features.Specialties.Services;
+using Server.Features.Visits.Repositories;
+using Server.Features.Visits.Services;
 using Server.Infrastructure.Identity;
 using Server.Infrastructure.Options;
 using Server.Infrastructure.Persistence;
@@ -107,6 +111,16 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IPatientAllergyService, PatientAllergyService>();
         services.AddScoped<IPatientInsuranceRepository, PatientInsuranceRepository>();
         services.AddScoped<IPatientInsuranceService, PatientInsuranceService>();
+        services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+        services.AddScoped<IAppointmentService, AppointmentService>();
+        services.AddScoped<IFollowUpRepository, FollowUpRepository>();
+        services.AddScoped<IFollowUpService, FollowUpService>();
+        services.AddScoped<IVisitRepository, VisitRepository>();
+        services.AddScoped<IVisitService, VisitService>();
+        services.AddScoped<IVisitDiagnosisRepository, VisitDiagnosisRepository>();
+        services.AddScoped<IVisitDiagnosisService, VisitDiagnosisService>();
+        services.AddScoped<IVisitVitalsRepository, VisitVitalsRepository>();
+        services.AddScoped<IVisitVitalsService, VisitVitalsService>();
         return services;
     }
 }
