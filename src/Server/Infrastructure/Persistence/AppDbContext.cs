@@ -63,6 +63,12 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, 
 
     public DbSet<Payment> Payments => Set<Payment>();
 
+    public DbSet<Notification> Notifications => Set<Notification>();
+
+    public DbSet<Attachment> Attachments => Set<Attachment>();
+
+    public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -117,6 +123,10 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, 
     {
         foreach (var entityType in builder.Model.GetEntityTypes())
         {
+            // Audit logs are permanent and must never be soft-delete filtered.
+            if (entityType.ClrType == typeof(AuditLog))
+                continue;
+
             if (typeof(BaseEntity).IsAssignableFrom(entityType.ClrType))
             {
                 var method = typeof(AppDbContext)
