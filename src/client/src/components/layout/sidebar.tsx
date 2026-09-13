@@ -8,6 +8,7 @@ import {
   Layers,
   Stethoscope,
   Users,
+  CalendarDays,
   HeartPulse,
   X,
 } from "lucide-react";
@@ -30,6 +31,8 @@ export function Sidebar({ open, onClose }: SidebarProps) {
     { href: "/specialties", label: t("nav.specialties"), Icon: Layers },
     { href: "/doctors", label: t("nav.doctors"), Icon: Stethoscope },
     { href: "/patients", label: t("nav.patients"), Icon: Users },
+    { href: "/appointments", label: t("nav.appointments"), Icon: CalendarDays },
+    { href: "/visits", label: t("nav.visits"), Icon: HeartPulse },
   ];
 
   return (
@@ -67,7 +70,8 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         </div>
         <nav className="flex-1 space-y-1 overflow-y-auto p-3">
           {links.map(({ href, label, Icon }) => {
-            const active = pathname === href;
+            const active =
+              pathname === href || pathname.startsWith(`${href}/`);
             return (
               <Link
                 key={href}
