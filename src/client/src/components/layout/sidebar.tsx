@@ -14,12 +14,21 @@ import {
   BriefcaseMedical,
   FlaskConical,
   Receipt,
+  CreditCard,
   Bell,
+  Paperclip,
   ScrollText,
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/hooks/use-translation";
+import {
+  ROLE_ADMIN,
+  ROLE_DOCTOR,
+  ROLE_RECEPTIONIST,
+  ROLE_SUPER_ADMIN,
+  useUserRoles,
+} from "@/hooks/use-user-roles";
 import { cn } from "@/lib/utils";
 
 interface SidebarProps {
@@ -27,25 +36,33 @@ interface SidebarProps {
   onClose: () => void;
 }
 
+const ALL_STAFF = [ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_DOCTOR, ROLE_RECEPTIONIST];
+const ADMIN_ONLY = [ROLE_SUPER_ADMIN, ROLE_ADMIN];
+
 export function Sidebar({ open, onClose }: SidebarProps) {
   const pathname = usePathname();
   const { t } = useTranslation();
+  const { canAccess } = useUserRoles();
 
   const links = [
-    { href: "/", label: t("nav.dashboard"), Icon: LayoutDashboard },
-    { href: "/clinic", label: t("nav.clinic"), Icon: Building2 },
-    { href: "/specialties", label: t("nav.specialties"), Icon: Layers },
-    { href: "/doctors", label: t("nav.doctors"), Icon: Stethoscope },
-    { href: "/patients", label: t("nav.patients"), Icon: Users },
-    { href: "/appointments", label: t("nav.appointments"), Icon: CalendarDays },
-    { href: "/visits", label: t("nav.visits"), Icon: HeartPulse },
-    { href: "/prescriptions", label: t("nav.prescriptions"), Icon: Pill },
-    { href: "/services", label: t("nav.services"), Icon: BriefcaseMedical },
-    { href: "/lab-tests", label: t("nav.labTests"), Icon: FlaskConical },
-    { href: "/billing", label: t("nav.billing"), Icon: Receipt },
-    { href: "/notifications", label: t("nav.notifications"), Icon: Bell },
-    { href: "/audit-logs", label: t("nav.auditLogs"), Icon: ScrollText },
+    { href: "/", label: t("nav.dashboard"), Icon: LayoutDashboard, roles: [] as string[] },
+    { href: "/patients", label: t("nav.patients"), Icon: Users, roles: ALL_STAFF },
+    { href: "/doctors", label: t("nav.doctors"), Icon: Stethoscope, roles: ADMIN_ONLY },
+    { href: "/appointments", label: t("nav.appointments"), Icon: CalendarDays, roles: ALL_STAFF },
+    { href: "/visits", label: t("nav.visits"), Icon: HeartPulse, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_DOCTOR] },
+    { href: "/prescriptions", label: t("nav.prescriptions"), Icon: Pill, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_DOCTOR] },
+    { href: "/services", label: t("nav.services"), Icon: BriefcaseMedical, roles: ADMIN_ONLY },
+    { href: "/lab-tests", label: t("nav.labTests"), Icon: FlaskConical, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_DOCTOR] },
+    { href: "/billing", label: t("nav.billing"), Icon: Receipt, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_RECEPTIONIST] },
+    { href: "/billing/payments", label: t("nav.payments"), Icon: CreditCard, roles: [ROLE_SUPER_ADMIN, ROLE_ADMIN, ROLE_RECEPTIONIST] },
+    { href: "/clinic", label: t("nav.clinic"), Icon: Building2, roles: ADMIN_ONLY },
+    { href: "/specialties", label: t("nav.specialties"), Icon: Layers, roles: ADMIN_ONLY },
+    { href: "/notifications", label: t("nav.notifications"), Icon: Bell, roles: [] as string[] },
+    { href: "/attachments", label: t("nav.attachments"), Icon: Paperclip, roles: [] as string[] },
+    { href: "/audit-logs", label: t("nav.auditLogs"), Icon: ScrollText, roles: ADMIN_ONLY },
   ];
+
+  const visibleLinks = links.filter((link) => canAccess(link.roles));
 
   return (
     <>
@@ -81,9 +98,11 @@ export function Sidebar({ open, onClose }: SidebarProps) {
           </Button>
         </div>
         <nav className="flex-1 space-y-1 overflow-y-auto p-3">
-          {links.map(({ href, label, Icon }) => {
+          {visibleLinks.map(({ href, label, Icon }) => {
             const active =
-              pathname === href || pathname.startsWith(`${href}/`);
+              href === "/"
+                ? pathname === "/"
+                : pathname === href || pathname.startsWith(`${href}/`);
             return (
               <Link
                 key={href}

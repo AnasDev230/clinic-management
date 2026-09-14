@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTranslation } from "@/hooks/use-translation";
+import { useUserRoles } from "@/hooks/use-user-roles";
 import { DEFAULT_PAGE_SIZE } from "@/lib/constants";
 import { AuditAction, type AuditLogListItem } from "@/types/audit-log";
 import { useAuditLogs } from "@/features/audit-logs/hooks/use-audit-logs";
@@ -15,6 +16,7 @@ import { AuditLogDetailSheet } from "@/features/audit-logs/components/audit-log-
 
 export default function AuditLogsPage() {
   const { t } = useTranslation();
+  const { canViewAuditDetail } = useUserRoles();
   const [page, setPage] = useState(1);
   const [filters, setFilters] = useState<AuditLogFilters>({
     action: "all",
@@ -33,7 +35,9 @@ export default function AuditLogsPage() {
     dateTo: filters.dateTo || undefined,
   });
 
-  const detailQuery = useAuditLog(viewTarget?.id ?? "");
+  const detailQuery = useAuditLog(
+    canViewAuditDetail ? (viewTarget?.id ?? "") : "",
+  );
 
   const handleFiltersChange = (next: AuditLogFilters) => {
     setFilters(next);
@@ -64,13 +68,16 @@ export default function AuditLogsPage() {
         page={page}
         onPageChange={setPage}
         onView={setViewTarget}
+        disableView={!canViewAuditDetail}
       />
 
-      <AuditLogDetailSheet
-        data={detailQuery.data ?? null}
-        isPending={detailQuery.isPending}
-        onClose={() => setViewTarget(null)}
-      />
+      {canViewAuditDetail && (
+        <AuditLogDetailSheet
+          data={detailQuery.data ?? null}
+          isPending={detailQuery.isPending}
+          onClose={() => setViewTarget(null)}
+        />
+      )}
     </div>
   );
 }

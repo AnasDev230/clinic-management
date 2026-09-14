@@ -28,6 +28,7 @@ interface AuditLogsTableProps {
   page: number;
   onPageChange: (page: number) => void;
   onView: (item: AuditLogListItem) => void;
+  disableView?: boolean;
 }
 
 export function AuditLogsTable({
@@ -39,6 +40,7 @@ export function AuditLogsTable({
   page,
   onPageChange,
   onView,
+  disableView = false,
 }: AuditLogsTableProps) {
   const { t, language } = useTranslation();
 
@@ -96,8 +98,8 @@ export function AuditLogsTable({
           {data?.items.map((item) => (
             <TableRow
               key={item.id}
-              className="cursor-pointer"
-              onClick={() => onView(item)}
+              className={disableView ? undefined : "cursor-pointer"}
+              onClick={disableView ? undefined : () => onView(item)}
             >
               <TableCell className="tabular-nums">
                 {formatDate(item.timestamp, language)}
