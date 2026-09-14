@@ -17,6 +17,7 @@ import { PatientForm } from "@/features/patients/components/patient-form";
 import { MedicalHistorySection } from "@/features/patients/components/medical-history-section";
 import { AllergiesSection } from "@/features/patients/components/allergies-section";
 import { InsuranceSection } from "@/features/patients/components/insurance-section";
+import { AttachmentsSection } from "@/features/attachments/components/attachments-section";
 import type { PatientFormValues } from "@/features/patients/schemas/patient-schema";
 import { Gender, type PatientDetail } from "@/types/patient";
 import type { UpdatePatientRequest } from "@/types/patient";
@@ -153,6 +154,9 @@ export default function PatientDetailPage({
             <TabsTrigger value="insurance">
               {t("patients.detail.tabs.insurance")}
             </TabsTrigger>
+            <TabsTrigger value="attachments">
+              {t("patients.detail.tabs.attachments")}
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="basic">
             <Card>
@@ -190,6 +194,9 @@ export default function PatientDetailPage({
                 />
               </CardContent>
             </Card>
+          </TabsContent>
+          <TabsContent value="attachments">
+            <AttachmentsSection entityType="Patient" entityId={id} />
           </TabsContent>
         </Tabs>
       )}

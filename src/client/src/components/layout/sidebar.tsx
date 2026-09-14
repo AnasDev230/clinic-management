@@ -14,6 +14,8 @@ import {
   BriefcaseMedical,
   FlaskConical,
   Receipt,
+  Bell,
+  ScrollText,
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -41,6 +43,8 @@ export function Sidebar({ open, onClose }: SidebarProps) {
     { href: "/services", label: t("nav.services"), Icon: BriefcaseMedical },
     { href: "/lab-tests", label: t("nav.labTests"), Icon: FlaskConical },
     { href: "/billing", label: t("nav.billing"), Icon: Receipt },
+    { href: "/notifications", label: t("nav.notifications"), Icon: Bell },
+    { href: "/audit-logs", label: t("nav.auditLogs"), Icon: ScrollText },
   ];
 
   return (

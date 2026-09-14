@@ -13,6 +13,7 @@ import { useVisit } from "@/features/visits/hooks/use-visit";
 import { VisitDetailPage } from "@/features/visits/components/visit-detail-page";
 import { DiagnosisSection } from "@/features/visits/components/diagnosis-section";
 import { VitalsSection } from "@/features/visits/components/vitals-section";
+import { AttachmentsSection } from "@/features/attachments/components/attachments-section";
 
 export default function VisitDetailRoutePage({
   params,
@@ -68,6 +69,7 @@ export default function VisitDetailRoutePage({
             <TabsTrigger value="diagnoses">{t("visits.tabs.diagnoses")}</TabsTrigger>
             <TabsTrigger value="vitals">{t("visits.tabs.vitals")}</TabsTrigger>
             <TabsTrigger value="financial">{t("visits.tabs.financial")}</TabsTrigger>
+            <TabsTrigger value="attachments">{t("visits.tabs.attachments")}</TabsTrigger>
           </TabsList>
           <TabsContent value="consultation">
             <VisitDetailPage visitId={id} />
@@ -80,6 +82,9 @@ export default function VisitDetailRoutePage({
           </TabsContent>
           <TabsContent value="financial">
             <VisitDetailPage visitId={id} />
+          </TabsContent>
+          <TabsContent value="attachments">
+            <AttachmentsSection entityType="Visit" entityId={id} />
           </TabsContent>
         </Tabs>
       )}

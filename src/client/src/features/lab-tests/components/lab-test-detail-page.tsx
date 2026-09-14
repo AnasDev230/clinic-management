@@ -26,6 +26,7 @@ import { LabTestStatus, type LabTestDetail } from "@/types/lab-test";
 import { LabTestStatusBadge } from "./lab-test-status-badge";
 import { LabTestPriorityBadge } from "./lab-test-priority-badge";
 import { LabResultsEditor } from "./lab-results-editor";
+import { AttachmentsSection } from "@/features/attachments/components/attachments-section";
 import { useStartLabTest } from "../hooks/use-start-lab-test";
 import { useCompleteLabTest } from "../hooks/use-complete-lab-test";
 import { useCancelLabTest } from "../hooks/use-cancel-lab-test";
@@ -202,6 +203,8 @@ export function LabTestDetailPage({ data }: LabTestDetailPageProps) {
           )}
         </CardContent>
       </Card>
+
+      <AttachmentsSection entityType="LabTest" entityId={data.id} />
 
       <Dialog open={completeOpen} onOpenChange={setCompleteOpen}>
         <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl">
