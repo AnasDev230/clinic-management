@@ -16,6 +16,8 @@ using Server.Features.Billing.Repositories;
 using Server.Features.Billing.Services;
 using Server.Features.Clinic.Repositories;
 using Server.Features.Clinic.Services;
+using Server.Features.Dashboard.Repositories;
+using Server.Features.Dashboard.Services;
 using Server.Features.Doctors.Repositories;
 using Server.Features.Doctors.Services;
 using Server.Features.LabTests.Repositories;
@@ -156,6 +158,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IAttachmentService, AttachmentService>();
         services.AddScoped<IAuditLogRepository, AuditLogRepository>();
         services.AddScoped<IAuditLogService, AuditLogService>();
+        services.AddScoped<IDashboardRepository, DashboardRepository>();
+        services.AddScoped<IDashboardService, DashboardService>();
         return services;
     }
 }
