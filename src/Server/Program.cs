@@ -3,6 +3,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.OpenApi.Models;
 using Server.Core.Extensions;
 using Server.Infrastructure.Persistence;
+using Server.Infrastructure.Persistence.DemoSeed;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -88,6 +89,22 @@ catch (Exception ex)
 {
     var logger = app.Services.GetRequiredService<ILogger<Program>>();
     logger.LogError(ex, "Database seeding failed. Ensure PostgreSQL is running and migrations are applied.");
+}
+
+// Large development-only demo dataset (all business tables).
+// Enabled explicitly via "DemoSeed:Enabled" in appsettings.Development.json.
+// Skips automatically when patients already exist.
+if (app.Environment.IsDevelopment() && app.Configuration.GetValue<bool>("DemoSeed:Enabled"))
+{
+    try
+    {
+        await DemoDataSeeder.SeedDemoAsync(app.Services, app.Configuration);
+    }
+    catch (Exception ex)
+    {
+        var logger = app.Services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Demo data seeding failed.");
+    }
 }
 
 app.Run();
